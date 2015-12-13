@@ -28,7 +28,9 @@ public class ShootScript : MonoBehaviour {
 	}
 
 	private void OnDied(bool isDead) {
-		isShooting = !isDead;
+		if (isDead) {
+			Destroy(this);
+		}
 	}
 
 	private void NewInterval() {

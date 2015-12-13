@@ -39,6 +39,7 @@ public class Player : MonoBehaviour {
 
 	public void Disassemble() {
 		_disassemble.Play();
+		Game.Instance.Disassemble();
 	}
 
 

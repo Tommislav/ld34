@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
 		Enemy,
 		DeadAttachable,
 		Friendly,
-		Dead
+		Disassembled
 	}
 
 	public State currentState = State.Enemy;
@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour {
 
 	private float rotationSpeed = 4f;
 	private float velX = 0f;
+	private float velY = 0f;
 	private float addX = 0f;
 
 
@@ -39,11 +40,25 @@ public class Enemy : MonoBehaviour {
 			
 		}
 
-		if (currentState == State.DeadAttachable || currentState == State.Dead) {
+		if (currentState == State.Disassembled) {
+			Vector3 p = transform.position;
+			velX *= 0.99f;
+			if (velY > 2f) {
+				velY -= 0.25f;
+			}
+			
+			p.x += velX;
+			p.y += velY;
+			transform.position = p;
+		}
+
+		if (currentState == State.DeadAttachable || currentState == State.Disassembled) {
 			if (transform.position.y < Game.Instance.bounds.yMin - 1f) {
 				GameObject.Destroy(gameObject);
 			}
 		}
+
+		
 	}
 
 	
@@ -100,8 +115,32 @@ public class Enemy : MonoBehaviour {
 			SendMessage("SetColor", new Color(0f, 178f/255f, 156f/255f, 1));
 			SendMessage("OnDied", false, SendMessageOptions.DontRequireReceiver);
 			SetFriendly(true);
-		}
 
+			Game.Instance.OnDisassemble += OnDisassemble;
+		}
+		else if (s == State.Disassembled) {
+			SendMessage("SetColor", new Color(0.5f, 0.5f, 0.5f, 1));
+			SendMessage("OnDied", true, SendMessageOptions.DontRequireReceiver);
+			gameObject.layer = 0;
+
+			Transform t = Game.Instance.player;
+			Vector3 p0 = transform.position;
+			Vector3 p1 = t.position;
+			float angle = Mathf.Atan2(p0.y - p1.y, p0.x - p1.x);
+			velX = Mathf.Cos(angle) * 0.15f;
+			velY = Mathf.Sin(angle) * 0.15f;
+			Debug.Log("Angle: " + angle + " vel: " + velX + "," + velY);
+
+			transform.SetParent(Game.Instance.player.parent, true); // unparent from player
+
+		}
+	}
+
+	private void OnDisassemble() {
+		Debug.Log("disassemble");
+		if (currentState == State.Friendly) {
+			SetState(State.Disassembled);
+		}
 	}
 
 	private void OnAttachedToPlayer() {

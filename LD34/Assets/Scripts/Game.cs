@@ -14,6 +14,7 @@ public class Game : MonoBehaviour {
 
 
 	public event GameEvent OnPlayerDamageEvent;
+	public event GameEvent OnDisassemble;
 
 
 	public float gravity = -0.02f;
@@ -52,6 +53,12 @@ public class Game : MonoBehaviour {
 	void Update () {
 	}
 
+
+	public void Disassemble() {
+		if (OnDisassemble != null) {
+			OnDisassemble();
+		}
+	}
 
 
 	public void OnPlayerDamage() {

@@ -4,17 +4,20 @@ using System.Collections;
 public class BulletSpawner : MonoBehaviour {
 
 	public int bulletType;
-	public float fireRate = 0.1f;
+
+	public float reloadTimeMin = 0.25f;
+	public float reloadTimeMax = 0.3f;
+	
 	public float speedOverride = -1f;
 	public bool friendly;
 
 
-	private float cooldown = 0f;
+	private float reloading = 0f;
 	
 	
 	void Update () {
-		if (cooldown > 0f) {
-			cooldown -= Time.deltaTime;
+		if (reloading > 0f) {
+			reloading -= Time.deltaTime;
 		}	
 	}
 
@@ -28,7 +31,7 @@ public class BulletSpawner : MonoBehaviour {
 
 	public void Fire() {
 		if (CanFire()) {
-			cooldown = fireRate;
+			reloading = Random.Range(reloadTimeMin, reloadTimeMax);
 
 			GameObject prefab = Game.Instance.bulletRegistry[bulletType];
 			GameObject bullet = GameObject.Instantiate(prefab);
@@ -44,6 +47,6 @@ public class BulletSpawner : MonoBehaviour {
 	}
 
 	public bool CanFire() {
-		return cooldown <= 0f;
+		return reloading <= 0f;
 	}
 }
