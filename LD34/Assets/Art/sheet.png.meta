@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3305517191c30b54084b5aa4db4f4bdc
-timeCreated: 1449934007
+timeCreated: 1449957421
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,12 @@ TextureImporter:
     21300002: bullet_round
     21300004: enemy1
     21300006: bullet_square
+    21300008: bullet_rect
+    21300010: player
+    21300012: sheet_1
+    21300014: enemyA
+    21300016: sheet_3
+    21300018: bullet_rect
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -58,39 +64,49 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4
-        y: 1990
+        y: 966
         width: 56
         height: 56
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bullet_round
+    - name: sheet_1
       rect:
         serializedVersion: 2
         x: 81
-        y: 2028
+        y: 1004
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: enemy1
+    - name: enemyA
       rect:
         serializedVersion: 2
         x: 119
-        y: 1991
+        y: 967
         width: 39
         height: 48
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: bullet_square
+    - name: sheet_3
       rect:
         serializedVersion: 2
         x: 81
-        y: 2012
+        y: 987
         width: 9
         height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bullet_rect
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 968
+        width: 25
+        height: 13
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

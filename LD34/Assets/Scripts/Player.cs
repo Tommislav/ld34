@@ -31,7 +31,10 @@ public class Player : MonoBehaviour {
 	}
 
 	public void Shoot() {
-
+		BulletSpawner[] spawners = GetComponentsInChildren<BulletSpawner>();
+		for(int i=0; i<spawners.Length; i++) {
+			spawners[i].Fire();
+		}
 	}
 
 	public void Disassemble() {
@@ -124,5 +127,9 @@ public class Player : MonoBehaviour {
 		p = new Vector3(p.x + _velocity.x, p.y + _velocity.y, 0);
 		transform.position = p;
 		
+	}
+
+	private void OnHitByBullet(Bullet b) {
+		Debug.Log("player hit by bullet");
 	}
 }

@@ -24,6 +24,9 @@ public class Colorize : MonoBehaviour {
 			Color newCol = new Color(color.r, color.g, color.b, oldCol.a);
 			psystems[i].startColor = newCol;
 		}
+	}
 
+	public void ResetColor() {
+		SetColor(color);
 	}
 }
