@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
+	public delegate void EnemyEvent(Enemy e);
+	public event EnemyEvent OnEnemyKilled;
+
+
 	public enum State {
 		Enemy,
 		DeadAttachable,
@@ -106,6 +110,11 @@ public class Enemy : MonoBehaviour {
 			
 			
 			gameObject.AddComponent<AttachToPlayer>();
+
+			if(OnEnemyKilled != null) {
+				OnEnemyKilled(this);
+			}
+
 		}
 		else if (s == State.Friendly) {
 			LeanTween.cancel(gameObject);
@@ -119,6 +128,8 @@ public class Enemy : MonoBehaviour {
 			Game.Instance.OnDisassemble += OnDisassemble;
 		}
 		else if (s == State.Disassembled) {
+			Game.Instance.OnDisassemble -= OnDisassemble;
+
 			SendMessage("SetColor", new Color(0.5f, 0.5f, 0.5f, 1));
 			SendMessage("OnDied", true, SendMessageOptions.DontRequireReceiver);
 			gameObject.layer = 0;
@@ -129,7 +140,6 @@ public class Enemy : MonoBehaviour {
 			float angle = Mathf.Atan2(p0.y - p1.y, p0.x - p1.x);
 			velX = Mathf.Cos(angle) * 0.15f;
 			velY = Mathf.Sin(angle) * 0.15f;
-			Debug.Log("Angle: " + angle + " vel: " + velX + "," + velY);
 
 			transform.SetParent(Game.Instance.player.parent, true); // unparent from player
 
@@ -137,7 +147,6 @@ public class Enemy : MonoBehaviour {
 	}
 
 	private void OnDisassemble() {
-		Debug.Log("disassemble");
 		if (currentState == State.Friendly) {
 			SetState(State.Disassembled);
 		}
@@ -147,10 +156,21 @@ public class Enemy : MonoBehaviour {
 		SetState(State.Friendly);
 	}
 
+	private void MoveCompleted() {
+		Destroy(gameObject);
+	}
+
 	private void SetFriendly(bool isFriend) {
 		BulletSpawner[] spawners = GetComponentsInChildren<BulletSpawner>();
 		for (int i=0; i<spawners.Length; i++) {
 			spawners[i].friendly = isFriend;
+		}
+	}
+
+	private void OnDestroy() {
+		Game.Instance.OnDisassemble -= OnDisassemble;
+		if (OnEnemyKilled != null) {
+			OnEnemyKilled(this);
 		}
 	}
 }

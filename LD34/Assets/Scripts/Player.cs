@@ -67,7 +67,7 @@ public class Player : MonoBehaviour {
 
 		if (shootIsDown && thrustIsDown && !disassembleChecked) {
 			disassembleChecked = true;
-			if (Mathf.Abs(shootTime - thrustTime) < 0.2f) {
+			if (Mathf.Abs(shootTime - thrustTime) < 0.1f) {
 				Disassemble();
 				disassembleIsDown = true;
 			}
