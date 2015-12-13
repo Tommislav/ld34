@@ -22,19 +22,18 @@ public class EnemyWaveController : MonoBehaviour {
 	void Start () {
 		currentWave = 0;
 		
-		Rect b = Game.Instance.bounds;
-		float outMargin = 1f;
-		float inMargin = 2f;
-		startLeft = b.xMin - outMargin;
-		startRight = b.xMax + outMargin;
-		startTop = b.yMax + outMargin;
-		startBottom = b.yMin - outMargin;
-		centerX = b.center.x;
-		centerY = b.center.y;
-		edgeLeft = b.xMin + inMargin;
-		edgeRight = b.xMax - inMargin;
-		edgeTop = b.yMax - inMargin;
-		edgeBottom = b.yMin + inMargin;
+		Game.Bounds b = Game.Instance.bounds;
+		
+		startLeft = b.outLeft;
+		startRight = b.outRight;
+		startTop = b.outTop;
+		startBottom = b.outBottom;
+		centerX = b.centerX;
+		centerY = b.centerY;
+		edgeLeft = b.l1;
+		edgeRight = b.r1;
+		edgeTop = b.t1;
+		edgeBottom = b.b1;
 
 		StartNewWave();
 	}
@@ -61,8 +60,7 @@ public class EnemyWaveController : MonoBehaviour {
 
 	void StartNewWave() {
 		Debug.Log("Start new wave: " + currentWave);
-		Rect bounds = Game.Instance.bounds;
-
+		
 		if (currentWave == 0) {
 
 			float fleeDelay = 8f;
@@ -103,7 +101,7 @@ public class EnemyWaveController : MonoBehaviour {
 	
 
 	private GameObject facePlayerX(GameObject go) {
-		if (go.transform.position.x < Game.Instance.bounds.center.x) {
+		if (go.transform.position.x < Game.Instance.bounds.centerX) {
 			go.transform.Rotate(0, 0, 180);
 		}
 		return go;

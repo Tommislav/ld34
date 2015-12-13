@@ -27,8 +27,7 @@ public class Bullet : MonoBehaviour {
 
 	private bool OutOfBounds() {
 		Vector3 p = transform.position;
-		Rect b = Game.Instance.bounds;
-		return !b.Contains(p);
+		return !Game.Instance.bounds.Contains(p);
 	}
 
 	private void OnTriggerEnter2D(Collider2D coll) {

@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour {
 		}
 
 		if (currentState == State.DeadAttachable || currentState == State.Disassembled) {
-			if (transform.position.y < Game.Instance.bounds.yMin - 1f) {
+			if (transform.position.y < Game.Instance.bounds.outBottom) {
 				GameObject.Destroy(gameObject);
 			}
 		}
@@ -93,11 +93,11 @@ public class Enemy : MonoBehaviour {
 
 			gameObject.layer = 0;
 
-			float extra = (Game.Instance.bounds.yMax - transform.position.y) / 2f;
+			float extra = (Game.Instance.bounds.top - transform.position.y) / 2f;
 
 			float playerX = Game.Instance.player.position.x;
 			float targetX = playerX < transform.position.x ? playerX - extra : playerX + extra;
-			float targetY = Game.Instance.bounds.yMin - 2;
+			float targetY = Game.Instance.bounds.bottom - 2f;
 			float time = Mathf.Abs(transform.position.x - targetX) * 0.3f;
 			float t2 = time / 2f;
 			float fallDelay = Mathf.Abs(transform.position.y + extra - targetY) * 0.3f;

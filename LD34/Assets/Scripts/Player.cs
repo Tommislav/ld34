@@ -110,13 +110,13 @@ public class Player : MonoBehaviour {
 		_velocity.y += _thrustForce;
 
 		
-		if (transform.position.y >= Game.Instance.bounds.yMax) {
-			transform.position = new Vector3(transform.position.x, Game.Instance.bounds.yMax, transform.position.z);
+		if (transform.position.y >= Game.Instance.bounds.top) {
+			transform.position = new Vector3(transform.position.x, Game.Instance.bounds.top, transform.position.z);
 			
 		}
 
-		if (transform.position.y <= Game.Instance.bounds.yMin) {
-			transform.position = new Vector3(transform.position.x, Game.Instance.bounds.yMin, transform.position.z);
+		if (transform.position.y <= Game.Instance.bounds.bottom) {
+			transform.position = new Vector3(transform.position.x, Game.Instance.bounds.bottom, transform.position.z);
 			
 		}
 

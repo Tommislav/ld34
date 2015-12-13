@@ -5,6 +5,41 @@ using System;
 
 public class Game : MonoBehaviour {
 
+	public struct Bounds {
+		public float top;
+		public float bottom;
+		public float left;
+		public float right;
+
+		public float outTop;
+		public float outBottom;
+		public float outLeft;
+		public float outRight;
+
+		public float centerX;
+		public float centerY;
+		public float l1;
+		public float l2;
+		public float l3;
+		public float r1;
+		public float r2;
+		public float r3;
+		public float t1;
+		public float t2;
+		public float t3;
+		public float b1;
+		public float b2;
+		public float b3;
+
+		public bool Contains(Vector2 p) {
+			return (p.x >= left && p.x <= right && p.y <= top && p.y >= bottom);
+		}
+
+		public bool Contains(Vector3 p) {
+			return Contains(new Vector2(p.x, p.y));
+		}
+	}
+
 	
 	public delegate void GameEvent();
 
@@ -18,7 +53,8 @@ public class Game : MonoBehaviour {
 
 
 	public float gravity = -0.02f;
-	public Rect bounds;
+	public Bounds bounds;
+	
 
 	
 	public GameObject[] bulletRegistry;
@@ -40,8 +76,43 @@ public class Game : MonoBehaviour {
 
 		Transform tl = transform.FindChild("BoundsTL");
 		Transform br = transform.FindChild("BoundsBR");
-		bounds = new Rect(tl.position.x, br.position.y, (br.position.x - tl.position.x), (tl.position.y - br.position.y));
 
+		// Setup bound values
+
+		float outMargin = 2f;
+		float margin1 = 1f;
+		float margin2 = 1.5f;
+		float margin3 = 2f;
+
+		bounds = new Bounds();
+		bounds.top = tl.position.y;
+		bounds.left = tl.position.x;
+		bounds.bottom = br.position.y;
+		bounds.right = br.position.x;
+
+		bounds.centerX = 0;
+		bounds.centerY = 0;
+		
+		bounds.outLeft = bounds.left - outMargin;
+		bounds.outRight = bounds.right + outMargin;
+		bounds.outTop = bounds.top + outMargin;
+		bounds.outBottom = bounds.bottom - outMargin;
+
+		bounds.l1 = bounds.left + margin1;
+		bounds.l2 = bounds.left + margin2;
+		bounds.l3 = bounds.left + margin3;
+
+		bounds.r1 = bounds.right - margin1;
+		bounds.r2 = bounds.right - margin2;
+		bounds.r3 = bounds.right - margin3;
+
+		bounds.t1 = bounds.top - margin1;
+		bounds.t2 = bounds.top - margin2;
+		bounds.t3 = bounds.top - margin3;
+
+		bounds.b1 = bounds.bottom + margin1;
+		bounds.b2 = bounds.bottom + margin2;
+		bounds.b3 = bounds.bottom + margin3;
 	}
 
 
