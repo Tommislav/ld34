@@ -39,22 +39,28 @@ public class EnemyWaveController : MonoBehaviour {
 	void StartNewWave() {
 		Debug.Log("Start new wave: " + currentWave);
 		
-		if (currentWave %2 == 1) {
+		if (currentWave == 0) {
+			createEnemy(0).AddComponent<WaveSineSideToSide>().Init(0, WaveBase.Dir.left, 0);
+			createEnemy(1).AddComponent<WaveSineSideToSide>().Init(0, WaveBase.Dir.left, 4).AddComponent<LookAtPlayer>();
+			createEnemy(2).AddComponent<WaveSineSideToSide>().Init(1, WaveBase.Dir.left, 8);
+		}
+
+		else if (currentWave %2 == 1) {
 
 
-			createEnemy(0).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 0);
-			createEnemy(1).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 2);
-			createEnemy(2).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 4);
-			createEnemy(1).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 6);
-			createEnemy(2).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 8);
+			createEnemy(0).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 0);
+			createEnemy(1).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 2);
+			createEnemy(2).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 4);
+			createEnemy(1).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 6);
+			createEnemy(2).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 8);
 
 
 		} else if (currentWave % 2 == 0) {
-			createEnemy(0).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 0);
-			createEnemy(1).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 2);
-			createEnemy(2).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 4);
-			createEnemy(1).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 6);
-			createEnemy(2).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 8);
+			createEnemy(0).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.right, 0);
+			createEnemy(1).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.right, 2);
+			createEnemy(2).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.right, 4);
+			createEnemy(1).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.right, 6);
+			createEnemy(2).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.right, 8);
 		}
 	}
 

@@ -25,10 +25,21 @@ public class Enemy : MonoBehaviour {
 	private float velY = 0f;
 	private float addX = 0f;
 
+	public bool invincible;
 
 
 	void Start () {
-	
+		
+	}
+
+	public void SetInvincible(float time) {
+		invincible = true;
+		StartCoroutine(StopInvincibleAfterDelay(time));
+	}
+
+	private IEnumerator StopInvincibleAfterDelay(float time) {
+		yield return new WaitForSeconds(time);
+		invincible = false;
 	}
 	
 	void Update () {
@@ -69,6 +80,8 @@ public class Enemy : MonoBehaviour {
 
 	private void OnHitByBullet(Bullet b) {
 		
+		if (invincible) { return; }
+
 		if (currentState == State.Enemy) {
 			if (--hp <= 0) {
 				SetState(State.DeadAttachable);
