@@ -96,13 +96,9 @@ public class Player : MonoBehaviour {
 			_thrust.Stop();
 		}
 		
-
-		
-		
 		if (shootIsDown) {
 			Shoot();
 		}
-
 
 		_velocity.y = Game.Instance.gravity;
 

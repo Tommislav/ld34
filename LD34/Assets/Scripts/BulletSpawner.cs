@@ -9,13 +9,30 @@ public class BulletSpawner : MonoBehaviour {
 	public float reloadTimeMax = 0.3f;
 	
 	public float speedOverride = -1f;
+
+
 	public bool friendly;
 
 
 	private float reloading = 0f;
+	private Color _bulletColor;
 	
+	public void SetIsFriendly(bool isFriendly) {
+		this.friendly = isFriendly;
+		_bulletColor = isFriendly ? Game.Instance.playerColor : getParentColor();
+	}
+
 	
+	private Color getParentColor() {
+		return transform.parent.gameObject.GetComponent<Colorize>().color;
+	}
+
+	void Start() {
+		SetIsFriendly(friendly);
+	}
+
 	void Update () {
+		
 		if (reloading > 0f) {
 			reloading -= Time.deltaTime;
 		}	
@@ -38,6 +55,7 @@ public class BulletSpawner : MonoBehaviour {
 			bullet.transform.position = transform.position;
 			bullet.transform.rotation = transform.rotation;
 			Bullet b = bullet.GetComponent<Bullet>();
+			bullet.GetComponent<Colorize>().SetColor(_bulletColor);
 			b.friendly = friendly;
             if (speedOverride > 0f) {
 				b.speed = speedOverride;

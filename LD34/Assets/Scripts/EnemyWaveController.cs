@@ -5,18 +5,7 @@ public class EnemyWaveController : MonoBehaviour {
 
 	public int currentWave;
 	private int enemyCount;
-
-	private float startLeft;
-	private float startRight;
-	private float startTop;
-	private float startBottom;
-	private float centerX;
-	private float centerY;
-	private float edgeLeft;
-	private float edgeRight;
-	private float edgeTop;
-	private float edgeBottom;
-
+	
 
 
 	void Start () {
@@ -24,17 +13,6 @@ public class EnemyWaveController : MonoBehaviour {
 		
 		Game.Bounds b = Game.Instance.bounds;
 		
-		startLeft = b.outLeft;
-		startRight = b.outRight;
-		startTop = b.outTop;
-		startBottom = b.outBottom;
-		centerX = b.centerX;
-		centerY = b.centerY;
-		edgeLeft = b.l1;
-		edgeRight = b.r1;
-		edgeTop = b.t1;
-		edgeBottom = b.b1;
-
 		StartNewWave();
 	}
 	
@@ -61,20 +39,23 @@ public class EnemyWaveController : MonoBehaviour {
 	void StartNewWave() {
 		Debug.Log("Start new wave: " + currentWave);
 		
-		//if (currentWave == 0) {
+		if (currentWave %2 == 1) {
 
 
 			createEnemy(0).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 0);
-			createEnemy(0).AddComponent<WaveA>().Init(1, WaveBase.Dir.left, 2);
-			createEnemy(0).AddComponent<WaveA>().Init(2, WaveBase.Dir.left, 4);
-			createEnemy(0).AddComponent<WaveA>().Init(3, WaveBase.Dir.left, 6);
-			createEnemy(0).AddComponent<WaveA>().Init(4, WaveBase.Dir.left, 8);
+			createEnemy(1).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 2);
+			createEnemy(2).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 4);
+			createEnemy(1).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 6);
+			createEnemy(2).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 8);
 
 
-		//}
-		//else if (currentWave == 1) {
-			
-		//}
+		} else if (currentWave % 2 == 0) {
+			createEnemy(0).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 0);
+			createEnemy(1).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 2);
+			createEnemy(2).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 4);
+			createEnemy(1).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 6);
+			createEnemy(2).AddComponent<WaveA>().Init(0, WaveBase.Dir.right, 8);
+		}
 	}
 
 	private GameObject createEnemy(int type) {

@@ -163,7 +163,7 @@ public class Enemy : MonoBehaviour {
 	private void SetFriendly(bool isFriend) {
 		BulletSpawner[] spawners = GetComponentsInChildren<BulletSpawner>();
 		for (int i=0; i<spawners.Length; i++) {
-			spawners[i].friendly = isFriend;
+			spawners[i].SetIsFriendly(isFriend);
 		}
 	}
 

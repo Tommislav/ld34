@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3305517191c30b54084b5aa4db4f4bdc
-timeCreated: 1449957421
+timeCreated: 1450024480
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -10,10 +10,14 @@ TextureImporter:
     21300006: bullet_square
     21300008: bullet_rect
     21300010: player
-    21300012: sheet_1
+    21300012: bullet_round
     21300014: enemyA
-    21300016: sheet_3
+    21300016: bullet_square
     21300018: bullet_rect
+    21300020: enemyBig
+    21300022: enemyCross
+    21300024: enemyWiggle
+    21300026: enemyBigger
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -70,7 +74,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sheet_1
+    - name: bullet_round
       rect:
         serializedVersion: 2
         x: 81
@@ -78,7 +82,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: enemyA
       rect:
@@ -90,7 +94,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sheet_3
+    - name: bullet_square
       rect:
         serializedVersion: 2
         x: 81
@@ -98,7 +102,7 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: bullet_rect
       rect:
@@ -107,6 +111,46 @@ TextureImporter:
         y: 968
         width: 25
         height: 13
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemyBig
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 947
+        width: 64
+        height: 74
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemyCross
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 966
+        width: 49
+        height: 48
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemyWiggle
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 964
+        width: 38
+        height: 46
+      alignment: 9
+      pivot: {x: .506154895, y: .586432397}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: enemyBigger
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 844
+        width: 88
+        height: 97
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

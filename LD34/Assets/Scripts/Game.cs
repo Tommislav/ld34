@@ -24,12 +24,12 @@ public class Game : MonoBehaviour {
 		public float r1;
 		public float r2;
 		public float r3;
-		public float t1;
-		public float t2;
-		public float t3;
-		public float b1;
-		public float b2;
-		public float b3;
+		public float y1;
+		public float y2;
+		public float y3;
+		public float y4;
+		public float y5;
+		public float y6;
 
 		public bool Contains(Vector2 p) {
 			return (p.x >= left && p.x <= right && p.y <= top && p.y >= bottom);
@@ -62,10 +62,14 @@ public class Game : MonoBehaviour {
 	public int playerLayer { get { return LayerMask.NameToLayer("player"); } }
 	public int enemyLayer { get { return LayerMask.NameToLayer("enemies"); } }
 	public Transform player { get { return _player.transform; } }
+	public Color playerColor { get { return _playerColor; } }
+
 
 	private Player _player;
 	private Camera _bgCamera;
 	private Color _bgColor;
+	private Color _playerColor;
+	
 
 	void Awake() {
 		if (Instance == null) {
@@ -73,13 +77,14 @@ public class Game : MonoBehaviour {
 		}
 
 		_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		_playerColor = _player.GetComponent<Colorize>().color;
 
-		Transform tl = transform.FindChild("BoundsTL");
-		Transform br = transform.FindChild("BoundsBR");
+		Transform b = transform.FindChild("Bounds");
+
+		Transform tl =b.FindChild("TL");
+		Transform br = b.FindChild("BR");
 
 		// Setup bound values
-
-		
 		bounds = new Bounds();
 		bounds.top = tl.position.y;
 		bounds.left = tl.position.x;
@@ -88,40 +93,29 @@ public class Game : MonoBehaviour {
 
 		bounds.centerX = 0;
 		bounds.centerY = 0;
-
 		
 		float outMargin = 2f;
-		float margin = 1f;
-
-		float height = bounds.top - bounds.bottom;
-		float ySplit = (height - margin - margin) / 7f;
-
-		float margin1 = 1f;
-		float margin2 = 2f;
-		float margin3 = 3f;
-
-
+		
 
 		bounds.outLeft = bounds.left - outMargin;
 		bounds.outRight = bounds.right + outMargin;
 		bounds.outTop = bounds.top + outMargin;
 		bounds.outBottom = bounds.bottom - outMargin;
+		
+		bounds.l1 = b.FindChild("L1").position.x;
+		bounds.l2 = b.FindChild("L2").position.x;
+		bounds.l3 = b.FindChild("L3").position.x;
 
-		bounds.l1 = bounds.left + margin1;
-		bounds.l2 = bounds.left + margin2;
-		bounds.l3 = bounds.left + margin3;
+		bounds.r1 = b.FindChild("R1").position.x;
+		bounds.r2 = b.FindChild("R2").position.x;
+		bounds.r3 = b.FindChild("R3").position.x;
 
-		bounds.r1 = bounds.right - margin1;
-		bounds.r2 = bounds.right - margin2;
-		bounds.r3 = bounds.right - margin3;
-
-		bounds.t1 = bounds.top - margin - (ySplit * 1);
-		bounds.t2 = bounds.top - margin - (ySplit * 2);
-		bounds.t3 = bounds.top - margin - (ySplit * 3);
-
-		bounds.b3 = bounds.top - margin - (ySplit * 5);
-		bounds.b2 = bounds.top - margin - (ySplit * 6);
-		bounds.b1 = bounds.top - margin - (ySplit * 7);
+		bounds.y1 = b.FindChild("Y1").position.y;
+		bounds.y2 = b.FindChild("Y2").position.y;
+		bounds.y3 = b.FindChild("Y3").position.y;
+		bounds.y4 = b.FindChild("Y4").position.y;
+		bounds.y5 = b.FindChild("Y5").position.y;
+		bounds.y6 = b.FindChild("Y6").position.y;
 	}
 
 
@@ -135,7 +129,14 @@ public class Game : MonoBehaviour {
 
 
 	public void Disassemble() {
+		
 		if (OnDisassemble != null) {
+
+			_bgCamera.backgroundColor = _playerColor;
+			StartCoroutine(ResetBgColor());
+
+			Camera.main.gameObject.GetComponent<CameraShake>().Shake(new Vector2(0.18f, 0.18f), 0.3f);
+
 			OnDisassemble();
 		}
 	}
@@ -147,7 +148,7 @@ public class Game : MonoBehaviour {
 
 		Camera.main.gameObject.GetComponent<CameraShake>().Shake(new Vector2(0.15f,0.15f), 0.2f);
 	}
-
+	
 	private IEnumerator ResetBgColor() {
 		yield return new WaitForSeconds(0.1f);
 		_bgCamera.backgroundColor = _bgColor;
