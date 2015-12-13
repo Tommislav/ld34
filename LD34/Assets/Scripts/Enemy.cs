@@ -56,8 +56,7 @@ public class Enemy : MonoBehaviour {
 			}
 			
 		} else if (currentState == State.Friendly) {
-			//TODO give damage to player
-			Debug.Log("give damage to player!");
+			Game.Instance.OnPlayerDamage();
 		}
 
 

@@ -27,6 +27,8 @@ public class Game : MonoBehaviour {
 	public Transform player { get { return _player.transform; } }
 
 	private Player _player;
+	private Camera _bgCamera;
+	private Color _bgColor;
 
 	void Awake() {
 		if (Instance == null) {
@@ -43,13 +45,24 @@ public class Game : MonoBehaviour {
 
 
 	void Start () {
-	
-	}
+		_bgCamera = GameObject.Find("BgCamera").GetComponent<Camera>();
+		_bgColor = _bgCamera.backgroundColor;
+    }
 	
 	void Update () {
-	
-		
+	}
 
 
+
+	public void OnPlayerDamage() {
+		_bgCamera.backgroundColor = new Color(1, 0, 0);
+		StartCoroutine(ResetBgColor());
+
+		Camera.main.gameObject.GetComponent<CameraShake>().Shake(new Vector2(0.15f,0.15f), 0.2f);
+	}
+
+	private IEnumerator ResetBgColor() {
+		yield return new WaitForSeconds(0.1f);
+		_bgCamera.backgroundColor = _bgColor;
 	}
 }

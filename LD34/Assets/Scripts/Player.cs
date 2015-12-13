@@ -130,6 +130,6 @@ public class Player : MonoBehaviour {
 	}
 
 	private void OnHitByBullet(Bullet b) {
-		Debug.Log("player hit by bullet");
+		Game.Instance.OnPlayerDamage();
 	}
 }
