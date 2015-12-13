@@ -48,7 +48,7 @@ public class Game : MonoBehaviour {
 
 
 
-	public event GameEvent OnPlayerDamageEvent;
+	public event GameEvent OnPlayerHealthChangedEvent;
 	public event GameEvent OnDisassemble;
 
 
@@ -63,6 +63,10 @@ public class Game : MonoBehaviour {
 	public int enemyLayer { get { return LayerMask.NameToLayer("enemies"); } }
 	public Transform player { get { return _player.transform; } }
 	public Color playerColor { get { return _playerColor; } }
+
+	public int health = 5;
+
+	private int _currentWave;
 
 
 	private Player _player;
@@ -142,13 +146,47 @@ public class Game : MonoBehaviour {
 	}
 
 
+	public void SetCurrentWave(int wave) {
+		_currentWave = wave + 1; // not zero based
+	}
+
+	public void AddHealth() {
+		if (health < 5) {
+			health += 1;
+			if (OnPlayerHealthChangedEvent != null) {
+				OnPlayerHealthChangedEvent();
+			}
+		}
+	}
+
 	public void OnPlayerDamage() {
+		health--;
+
+		if (health <= 0) {
+			GameOver();
+			return;
+		}
+
+
 		_bgCamera.backgroundColor = new Color(1, 0, 0);
 		StartCoroutine(ResetBgColor());
 
 		Camera.main.gameObject.GetComponent<CameraShake>().Shake(new Vector2(0.15f,0.15f), 0.3f);
+
+		if (OnPlayerHealthChangedEvent != null) {
+			OnPlayerHealthChangedEvent();
+		}
 	}
-	
+
+	private void GameOver() {
+		WaveCount.currentWaveCount = _currentWave;
+		if (_currentWave > WaveCount.maxWaveCount) {
+			WaveCount.maxWaveCount = _currentWave;
+		}
+
+		Application.LoadLevel("GameOver");
+	}
+
 	private IEnumerator ResetBgColor() {
 		yield return new WaitForSeconds(0.2f);
 		_bgCamera.backgroundColor = _bgColor;

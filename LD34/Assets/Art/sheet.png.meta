@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3305517191c30b54084b5aa4db4f4bdc
-timeCreated: 1450024480
+timeCreated: 1450046412
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -18,6 +18,9 @@ TextureImporter:
     21300022: enemyCross
     21300024: enemyWiggle
     21300026: enemyBigger
+    21300028: dummy
+    21300030: heartFull
+    21300032: heartEmpty
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -151,6 +154,36 @@ TextureImporter:
         y: 844
         width: 88
         height: 97
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: dummy
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 857
+        width: 70
+        height: 70
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: heartFull
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 985
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: heartEmpty
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 985
+        width: 25
+        height: 23
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

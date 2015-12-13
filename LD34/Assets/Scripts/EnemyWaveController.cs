@@ -9,8 +9,10 @@ public class EnemyWaveController : MonoBehaviour {
 
 
 	void Start () {
+#if !UNITY_EDITOR
 		currentWave = 0;
-		
+#endif
+
 		Game.Bounds b = Game.Instance.bounds;
 		
 		StartNewWave();
@@ -38,7 +40,12 @@ public class EnemyWaveController : MonoBehaviour {
 
 	void StartNewWave() {
 		Debug.Log("Start new wave: " + currentWave);
-		
+
+		if (currentWave % 5 == 0) {
+			Game.Instance.AddHealth();
+		}
+
+		Game.Instance.SetCurrentWave(currentWave);
 
 		if (currentWave == 0) {
 			createEnemy(2).AddComponent<WaveZigZagTopDown>().SetExtraProp(0.5f).Init(0, WaveBase.Dir.left, 0f);
@@ -49,8 +56,7 @@ public class EnemyWaveController : MonoBehaviour {
 
 			createEnemy(2).AddComponent<WaveZigZagTopDown>().SetExtraProp(0.5f).Init(0, WaveBase.Dir.left, 10f);
 			createEnemy(2).AddComponent<WaveZigZagTopDown>().SetExtraProp(0.5f).Init(0, WaveBase.Dir.right, 12f);
-
-			//createEnemy(1).AddComponent<WavePeakInFromSide>().Init(4, WaveBase.Dir.right, 2);
+			
 		}
 
 		else if (currentWave == 1) {
@@ -61,14 +67,21 @@ public class EnemyWaveController : MonoBehaviour {
 			createEnemy(2).AddComponent<WaveOneLapAround>().Init(3, WaveBase.Dir.right, 4f);
 
 			createEnemy(1).AddComponent<WaveSineSideToSide>().Init(0, WaveBase.Dir.left, 5);
+			createEnemy(1).AddComponent<WaveSineSideToSide>().Init(0, WaveBase.Dir.left, 6);
+			createEnemy(1).AddComponent<WaveSineSideToSide>().Init(0, WaveBase.Dir.left, 7);
 
 			createEnemy(2).AddComponent<WaveOneLapAround>().Init(1, WaveBase.Dir.right, 8f);
 			createEnemy(2).AddComponent<WaveOneLapAround>().Init(3, WaveBase.Dir.right, 8f);
-
 			
 		}
 
-
+		else if (currentWave == 2) {
+			createEnemy(0).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 0);
+			createEnemy(1).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 2);
+			createEnemy(2).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 4);
+			createEnemy(1).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 6);
+			createEnemy(2).AddComponent<WaveZigZagTopDown>().Init(0, WaveBase.Dir.left, 8);
+		}
 
 		else if (currentWave == 0) {
 			createEnemy(1).AddComponent<WaveOneLapAround>().Init(0, WaveBase.Dir.right, 0);
