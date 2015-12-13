@@ -14,6 +14,9 @@ public class WaveBase : MonoBehaviour {
 	public bool isDead;
 	public Vector2 startPos;
 
+	public bool extraPropSet;
+	public float extraProp;
+
 
 	virtual protected void Start() {
 		GetComponent<Enemy>().SetInvincible(startDelay + 1);
@@ -33,6 +36,12 @@ public class WaveBase : MonoBehaviour {
 		return gameObject;
 	}
 
+	public WaveBase SetExtraProp(float prop) {
+		extraPropSet = true;
+		extraProp = prop;
+		return this;
+	}
+
 	private void OnDied(bool didDie) {
 		if (didDie) {
 			isDead = true;
@@ -45,12 +54,12 @@ public class WaveBase : MonoBehaviour {
 	}
 
 	protected void FacePlayerX() {
-		float rot = (transform.position.x < bounds.centerX) ? -90 : 90;
-		transform.Rotate(0, 0, rot);
+		float rot = (transform.position.x < bounds.centerX) ? 90 : -90;
+		transform.rotation = Quaternion.Euler(0, 0, rot);
 	}
 
 	protected void FacePlayerY() {
-		float rot = (transform.position.y < bounds.centerY) ? 0 : 180;
-		transform.Rotate(0, 0, rot);
+		float rot = (transform.position.y < bounds.centerY) ? 180 : 0;
+		transform.rotation = Quaternion.Euler(0, 0, rot);
 	}
 }

@@ -7,13 +7,28 @@ public class WaveZigZagTopDown : WaveBase {
 	private float x1;
 	private float x2;
 	private float x3;
+	private float waitDelay;
 
 	protected override void Start() {
 		base.Start();
-	
-		x1 = direction == Dir.left ? bounds.l1 : bounds.r1;
-		x2 = direction == Dir.left ? bounds.l2 : bounds.r2;
-		x3 = direction == Dir.left ? bounds.l3 : bounds.r3;
+
+		if (index == 0) {
+			x1 = direction == Dir.left ? bounds.l1 : bounds.r1;
+			x2 = direction == Dir.left ? bounds.l2 : bounds.r2;
+			x3 = direction == Dir.left ? bounds.l1 : bounds.r1;
+		} else if (index == 1) {
+			x1 = direction == Dir.left ? bounds.l2 : bounds.r2;
+			x2 = direction == Dir.left ? bounds.l3 : bounds.r3;
+			x3 = direction == Dir.left ? bounds.l2 : bounds.r2;
+		} else {
+			x1 = direction == Dir.left ? bounds.l1 : bounds.r1;
+			x2 = direction == Dir.left ? bounds.l2 : bounds.r2;
+			x3 = direction == Dir.left ? bounds.l3 : bounds.r3;
+		}
+
+		
+
+		waitDelay = extraPropSet ? extraProp : 1f;
 
 		SetStartPos(x3, bounds.outTop);
 		FacePlayerX();
@@ -30,27 +45,27 @@ public class WaveZigZagTopDown : WaveBase {
 
 
 	private void m1() {
-		LeanTween.move(gameObject, new Vector2(x2, bounds.y2), 1).setDelay(1).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m2);
+		LeanTween.move(gameObject, new Vector2(x2, bounds.y2), 1).setDelay(waitDelay).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m2);
 	}
 
 	private void m2() {
-		LeanTween.move(gameObject, new Vector2(x3, bounds.y3), 1).setDelay(1).setEase(LeanTweenType.easeInOutCubic).setOnComplete(mcenter);
+		LeanTween.move(gameObject, new Vector2(x3, bounds.y3), 1).setDelay(waitDelay).setEase(LeanTweenType.easeInOutCubic).setOnComplete(mcenter);
 	}
 
 	private void mcenter() {
-		LeanTween.move(gameObject, new Vector2(x2, bounds.centerY), 1).setDelay(1).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m3);
+		LeanTween.move(gameObject, new Vector2(x2, bounds.centerY), 1).setDelay(waitDelay).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m3);
 	}
 
 	private void m3() {
-		LeanTween.move(gameObject, new Vector2(x1, bounds.y4), 1).setDelay(1).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m4);
+		LeanTween.move(gameObject, new Vector2(x1, bounds.y4), 1).setDelay(waitDelay).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m4);
 	}
 
 	private void m4() {
-		LeanTween.move(gameObject, new Vector2(x2, bounds.y5), 1).setDelay(1).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m5);
+		LeanTween.move(gameObject, new Vector2(x2, bounds.y5), 1).setDelay(waitDelay).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m5);
 	}
 
 	private void m5() {
-		LeanTween.move(gameObject, new Vector2(x3, bounds.y6), 1).setDelay(1).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m6);
+		LeanTween.move(gameObject, new Vector2(x3, bounds.y6), 1).setDelay(waitDelay).setEase(LeanTweenType.easeInOutCubic).setOnComplete(m6);
 	}
 
 	private void m6() {

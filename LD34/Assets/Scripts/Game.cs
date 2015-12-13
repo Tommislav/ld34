@@ -135,7 +135,7 @@ public class Game : MonoBehaviour {
 			_bgCamera.backgroundColor = _playerColor;
 			StartCoroutine(ResetBgColor());
 
-			Camera.main.gameObject.GetComponent<CameraShake>().Shake(new Vector2(0.18f, 0.18f), 0.3f);
+			Camera.main.gameObject.GetComponent<CameraShake>().Shake(new Vector2(0.18f, 0.18f), 0.35f);
 
 			OnDisassemble();
 		}
@@ -146,11 +146,11 @@ public class Game : MonoBehaviour {
 		_bgCamera.backgroundColor = new Color(1, 0, 0);
 		StartCoroutine(ResetBgColor());
 
-		Camera.main.gameObject.GetComponent<CameraShake>().Shake(new Vector2(0.15f,0.15f), 0.2f);
+		Camera.main.gameObject.GetComponent<CameraShake>().Shake(new Vector2(0.15f,0.15f), 0.3f);
 	}
 	
 	private IEnumerator ResetBgColor() {
-		yield return new WaitForSeconds(0.1f);
+		yield return new WaitForSeconds(0.2f);
 		_bgCamera.backgroundColor = _bgColor;
 	}
 }
