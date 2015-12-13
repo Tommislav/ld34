@@ -61,33 +61,28 @@ public class EnemyWaveController : MonoBehaviour {
 	void StartNewWave() {
 		Debug.Log("Start new wave: " + currentWave);
 		
-		if (currentWave == 0) {
+		//if (currentWave == 0) {
 
-			float fleeDelay = 8f;
-			MoveShip(createEnemy(0, startLeft, startTop)).AddToPath(0, edgeLeft, edgeTop, 2f).FleeOnDone(fleeDelay);
-			MoveShip(createEnemy(0, startLeft, startTop)).AddToPath(0, edgeLeft, edgeBottom, 2f).FleeOnDone(fleeDelay);
 
-			MoveShip(createEnemy(0, startRight, startTop)).AddToPath(0, edgeRight, edgeTop, 2f).FleeOnDone(fleeDelay);
-			MoveShip(createEnemy(0, startRight, startTop)).AddToPath(0, edgeRight, edgeBottom, 2f).FleeOnDone(fleeDelay);
-		}
-		else if (currentWave == 1) {
-			float fleeDelay = 8f;
-			MoveShip(createEnemy(0, startLeft, startTop)).AddToPath(0, edgeLeft, edgeTop, 2f).FleeOnDone(fleeDelay);
-			MoveShip(createEnemy(0, startLeft, startTop)).AddToPath(0, edgeLeft, centerY, 2f).FleeOnDone(fleeDelay);
-			MoveShip(createEnemy(0, startLeft, startTop)).AddToPath(0, edgeLeft, edgeBottom, 2f).FleeOnDone(fleeDelay);
+			createEnemy(0).AddComponent<WaveA>().Init(0, WaveBase.Dir.left, 0);
+			createEnemy(0).AddComponent<WaveA>().Init(1, WaveBase.Dir.left, 2);
+			createEnemy(0).AddComponent<WaveA>().Init(2, WaveBase.Dir.left, 4);
+			createEnemy(0).AddComponent<WaveA>().Init(3, WaveBase.Dir.left, 6);
+			createEnemy(0).AddComponent<WaveA>().Init(4, WaveBase.Dir.left, 8);
 
-			MoveShip(createEnemy(0, startRight, startTop)).AddToPath(0, edgeRight, edgeTop, 2f).FleeOnDone(fleeDelay);
-			MoveShip(createEnemy(0, startRight, startTop)).AddToPath(0, edgeRight, centerY, 2f).FleeOnDone(fleeDelay);
-			MoveShip(createEnemy(0, startRight, startTop)).AddToPath(0, edgeRight, edgeBottom, 2f).FleeOnDone(fleeDelay);
-		}
+
+		//}
+		//else if (currentWave == 1) {
+			
+		//}
 	}
 
-	private GameObject createEnemy(int type, float x, float y) {
+	private GameObject createEnemy(int type) {
 		enemyCount++;
 		GameObject go = GameObject.Instantiate(Game.Instance.enemyRegistry[type]);
 		go.layer = Game.Instance.enemyLayer;
 		go.transform.SetParent(Game.Instance.transform);
-		go.transform.position = new Vector3(x, y);
+		//go.transform.position = new Vector3(x, y);
 		go.GetComponent<Enemy>().OnEnemyKilled += OnEnemyKilled;
 		facePlayerX(go);
 		return go;
@@ -98,6 +93,7 @@ public class EnemyWaveController : MonoBehaviour {
 		return go;
 	}
 
+	
 	
 
 	private GameObject facePlayerX(GameObject go) {

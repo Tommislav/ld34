@@ -79,11 +79,7 @@ public class Game : MonoBehaviour {
 
 		// Setup bound values
 
-		float outMargin = 2f;
-		float margin1 = 1f;
-		float margin2 = 1.5f;
-		float margin3 = 2f;
-
+		
 		bounds = new Bounds();
 		bounds.top = tl.position.y;
 		bounds.left = tl.position.x;
@@ -92,7 +88,20 @@ public class Game : MonoBehaviour {
 
 		bounds.centerX = 0;
 		bounds.centerY = 0;
+
 		
+		float outMargin = 2f;
+		float margin = 1f;
+
+		float height = bounds.top - bounds.bottom;
+		float ySplit = (height - margin - margin) / 7f;
+
+		float margin1 = 1f;
+		float margin2 = 2f;
+		float margin3 = 3f;
+
+
+
 		bounds.outLeft = bounds.left - outMargin;
 		bounds.outRight = bounds.right + outMargin;
 		bounds.outTop = bounds.top + outMargin;
@@ -106,13 +115,13 @@ public class Game : MonoBehaviour {
 		bounds.r2 = bounds.right - margin2;
 		bounds.r3 = bounds.right - margin3;
 
-		bounds.t1 = bounds.top - margin1;
-		bounds.t2 = bounds.top - margin2;
-		bounds.t3 = bounds.top - margin3;
+		bounds.t1 = bounds.top - margin - (ySplit * 1);
+		bounds.t2 = bounds.top - margin - (ySplit * 2);
+		bounds.t3 = bounds.top - margin - (ySplit * 3);
 
-		bounds.b1 = bounds.bottom + margin1;
-		bounds.b2 = bounds.bottom + margin2;
-		bounds.b3 = bounds.bottom + margin3;
+		bounds.b3 = bounds.top - margin - (ySplit * 5);
+		bounds.b2 = bounds.top - margin - (ySplit * 6);
+		bounds.b1 = bounds.top - margin - (ySplit * 7);
 	}
 
 
