@@ -50,6 +50,7 @@ public class Game : MonoBehaviour {
 
 	public event GameEvent OnPlayerHealthChangedEvent;
 	public event GameEvent OnDisassemble;
+	public event GameEvent OnBossDiedEvent;
 
 
 	public float gravity = -0.02f;
@@ -175,6 +176,12 @@ public class Game : MonoBehaviour {
 
 		if (OnPlayerHealthChangedEvent != null) {
 			OnPlayerHealthChangedEvent();
+		}
+	}
+
+	public void OnBossDidDie() {
+		if (OnBossDiedEvent != null) {
+			OnBossDiedEvent();
 		}
 	}
 

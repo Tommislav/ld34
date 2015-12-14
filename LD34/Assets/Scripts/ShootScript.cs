@@ -17,6 +17,7 @@ public class ShootScript : MonoBehaviour {
 	}
 	
 	void Update () {
+		if (spawner == null) { return; }
 
 		if (isShooting) {
 			countDown -= Time.deltaTime;

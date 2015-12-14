@@ -16,6 +16,7 @@ public class WaveBase : MonoBehaviour {
 
 	public bool extraPropSet;
 	public float extraProp;
+	public bool isBoss;
 
 
 	virtual protected void Start() {
@@ -42,10 +43,19 @@ public class WaveBase : MonoBehaviour {
 		return this;
 	}
 
+	public WaveBase SetIsBoss() {
+		this.isBoss = true;
+		return this;
+	}
+
 	private void OnDied(bool didDie) {
 		if (didDie) {
 			isDead = true;
 			LeanTween.cancel(gameObject);
+
+			if (isBoss) {
+				Game.Instance.OnBossDidDie();
+			}
 		}
 	}
 
